@@ -16,10 +16,11 @@ Installation
 
 __In your Gemfile add:__
 
-    gem punching_bag
+    gem "punching_bag"
 
 __In the terminal run:__
 
+    bundle install
     rails g punching_bag
     rake db:migrate
 
