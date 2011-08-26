@@ -1,7 +1,7 @@
 namespace :punching_bag do
 
   desc 'Combine old hit records together to improve performance'
-  task :combine, :by_day_after, :by_month_after, :by_year_after, :needs=>:environment do |t, args|
+  task :combine, [:by_day_after, :by_month_after, :by_year_after] => [:environment] do |t, args|
     args.with_defaults :by_day_after => 7, :by_month_after => 1, :by_year_after => 1 
     
     punchables = Punch.all.map(&:punchable).uniq
