@@ -1,6 +1,7 @@
 module PunchingBag
   require 'punching_bag/engine' if defined?(Rails)
   require 'punching_bag/acts_as_punchable'
+  require 'voight_kampff'
   
   def self.punch(punchable, request=nil)
     if request.try(:bot?)
