@@ -52,7 +52,11 @@ __Getting a list of the five all-time most hit posts__
 
 __Getting a list of the 10 most hit posts for the last 24 hours__
 
-    Post.most_hit(1.day.ago, 10)
+    Post.most_hit(1.day.ago, 10)  # limit is 5 by default, pass nil for no limits
+
+__Sorting posts based on all time hit count__
+
+    Post.sort_by_popularity('DESC')   # DESC by default, can also use ASC
 
 __Getting a hit count on a tag for the last month__
 

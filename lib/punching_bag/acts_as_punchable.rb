@@ -7,6 +7,12 @@ module PunchingBag
         query = query.where('punches.average_time >= ?', since) unless since.nil?
         query.order('SUM(punches.hits) DESC').limit(limit)
       end
+
+      def sort_by_popularity(dir='DESC')
+        query = self.scoped.joins("LEFT OUTER JOIN punches ON punches.punchable_id = #{self.to_s.tableize}.id AND punches.punchable_type = '#{self.to_s}'")
+        query = query.group(:id)
+        query.order("SUM(punches.hits) #{dir}")
+      end
     end
     
     module InstanceMethods
