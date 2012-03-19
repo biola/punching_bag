@@ -12,6 +12,6 @@ spec = Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.author = "Adam Crownoble"
   s.email = "adam@obledesign.com"
-  s.homepage = "https://github.com/adamcrown/punching_bag"
+  s.homepage = "https://github.com/biola/punching_bag"
   s.add_dependency('voight_kampff', '~>0.1.1')
 end
