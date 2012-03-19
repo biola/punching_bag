@@ -9,7 +9,7 @@ Features
 * Simple trending based on most hits in the last day, week, month, etc.
 * Rake task to group old hit records for better performance
 * [ActsAsTaggableOn](https://github.com/mbleigh/acts-as-taggable-on) integration for trending tags/topics support
-* [Voight-Kampff](https://github.com/adamcrown/Voight-Kampff) integration for bot checking
+* [Voight-Kampff](https://github.com/biola/Voight-Kampff) integration for bot checking
 
 Installation
 ============
@@ -81,5 +81,5 @@ Notes
 * The `punching_bag:combine` rake tasks is not run automatically. You'll have to run it manually or add it as a cron job.
 * The `punching_bag:combine` rake task can take a while depending on how many records need to be combined.
 * Passing the `request` object to the `punch` method is optional but without it requests from bots, crawlers and spiders will be tracked.
-* See the [Voight-Kampff](https://github.com/adamcrown/Voight-Kampff) documentation if you'd like to customize the list of user-agents considered bots.
+* See the [Voight-Kampff](https://github.com/biola/Voight-Kampff) documentation if you'd like to customize the list of user-agents considered bots.
 * The tag related features will only work if you have [ActsAsTaggableOn](https://github.com/mbleigh/acts-as-taggable-on) installed and enabled on the same models as Punching Bag.
