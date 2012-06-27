@@ -35,6 +35,6 @@ class ActiveRecord::Base
   def self.acts_as_punchable
     extend PunchingBag::ActiveRecord::ClassMethods
     include PunchingBag::ActiveRecord::InstanceMethods
-    has_many :punches, :as => :punchable
+    has_many :punches, :as => :punchable, :dependent => :destroy
   end
 end
