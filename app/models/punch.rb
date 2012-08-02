@@ -92,7 +92,7 @@ class Punch < ActiveRecord::Base
   end
 
   def self.average_for(punchables)
-    if punchables.map(&:class).uniq.length != 1
+    if punchables.map(&:class).uniq.length > 1
       raise ArgumentError, 'Punchables must all be of the same class'
     end
 
