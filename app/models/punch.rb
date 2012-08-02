@@ -91,6 +91,18 @@ class Punch < ActiveRecord::Base
     end
   end
 
+  def self.average_for(punchables)
+    if punchables.map(&:class).uniq.length != 1
+      raise ArgumentError, 'Punchables must all be of the same class'
+    end
+
+    sums = Punch.where(:punchable_type => punchables.first.class.to_s, :punchable_id => punchables.map(&:id)).group(:punchable_id).sum(:hits)
+
+    return 0 if sums.empty? # catch divide by zero
+
+    sums.values.inject(:+).to_f / sums.length    
+  end
+
   private
   
   def set_defaults
