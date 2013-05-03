@@ -5,7 +5,7 @@ module PunchingBag
 
       # Note: this method will only return items if they have 1 or more hits
       def most_hit(since=nil, limit=5)
-        query = self.scoped.joins(:punches).group(:punchable_type, :punchable_id, "#{table_name}.#{self.class.primary_key}")
+        query = self.scoped.joins(:punches).group(:punchable_type, :punchable_id, "#{table_name}.#{primary_key}")
         query = query.where('punches.average_time >= ?', since) unless since.nil?
         query.reorder('SUM(punches.hits) DESC').limit(limit)
       end
