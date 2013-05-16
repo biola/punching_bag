@@ -13,7 +13,7 @@ module PunchingBag
       # Note: this method will return all items with 0 or more hits
       def sort_by_popularity(dir='DESC')
         query = self.scoped.joins("LEFT OUTER JOIN punches ON punches.punchable_id = #{table_name}.id AND punches.punchable_type = '#{self.name}'")
-        query = query.group(:id)
+        query = query.group("#{table_name}.#{primary_key}")
         query.reorder("SUM(punches.hits) #{dir}")
       end
     end
