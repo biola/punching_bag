@@ -5,15 +5,15 @@ module PunchingBag
 
       # Note: this method will only return items if they have 1 or more hits
       def most_hit(since=nil, limit=5)
-        query = self.scoped.joins(:punches).group(:punchable_type, :punchable_id, "#{table_name}.#{primary_key}")
+        query = self.scoped.joins(:punches).group(Punch.arel_table[:punchable_type], Punch.arel_table[:punchable_id], arel_table.primary_key)
         query = query.where('punches.average_time >= ?', since) unless since.nil?
         query.reorder('SUM(punches.hits) DESC').limit(limit)
       end
 
       # Note: this method will return all items with 0 or more hits
       def sort_by_popularity(dir='DESC')
-        query = self.scoped.joins("LEFT OUTER JOIN punches ON punches.punchable_id = #{table_name}.id AND punches.punchable_type = '#{self.name}'")
-        query = query.group("#{table_name}.#{primary_key}")
+        query = self.scoped.joins(arel_table.join(Punch.arel_table, Arel::Nodes::OuterJoin).on(Punch.arel_table[:punchable_id].eq(arel_table.primary_key).and(Punch.arel_table[:punchable_type].eq(self.name))).join_sources.first)
+        query = query.group(arel_table.primary_key)
         query.reorder("SUM(punches.hits) #{dir}")
       end
     end
