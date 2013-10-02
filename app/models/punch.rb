@@ -2,8 +2,6 @@ class Punch < ActiveRecord::Base
 
   belongs_to :punchable, :polymorphic => true
 
-  attr_accessible # none
-
   before_validation :set_defaults
   validates :punchable_id, :punchable_type, :starts_at, :ends_at, :average_time, :hits, :presence => true
 
