@@ -17,4 +17,4 @@ class CreatePunchesTable < ActiveRecord::Migration
     remove_index :punches, :average_time
     drop_table :punches
   end
-end 
+end

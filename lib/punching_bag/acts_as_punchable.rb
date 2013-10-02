@@ -1,6 +1,6 @@
 module PunchingBag
   module ActiveRecord
-  
+
     module ClassMethods
 
       # Note: this method will only return items if they have 1 or more hits
@@ -17,17 +17,17 @@ module PunchingBag
         query.reorder("SUM(punches.hits) #{dir}")
       end
     end
-    
+
     module InstanceMethods
       def hits(since=nil)
         self.punches.after(since).sum(:hits)
       end
-      
+
       def punch(request=nil)
         PunchingBag.punch(self, request)
       end
     end
-    
+
   end
 end
 

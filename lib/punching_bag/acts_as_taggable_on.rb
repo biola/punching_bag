@@ -10,7 +10,7 @@ module ActsAsTaggableOn
       query = query.where('punches.average_time >= ?', since) if since
       query.map(&:tag)
     end
-    
+
     def hits(since=nil)
       query = Tagging.scoped.
         joins('INNER JOIN punches ON (taggings.taggable_id = punches.punchable_id AND taggings.taggable_type = punches.punchable_type)').

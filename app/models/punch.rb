@@ -48,20 +48,20 @@ class Punch < ActiveRecord::Base
   def day_combo?
     timeframe == :day
   end
-  
+
   def month_combo?
     timeframe == :month
   end
-  
+
   def year_combo?
     timeframe == :year
   end
-  
+
   def find_combo_for(timeframe)
     punches = punchable.punches.by_timeframe(timeframe, average_time)
     punches.combos.first || punches.first
   end
-  
+
   def combine_with(combo)
     if combo != self
       combo.starts_at = starts_at if starts_at < combo.starts_at
@@ -72,19 +72,19 @@ class Punch < ActiveRecord::Base
     end
     combo
   end
-  
+
   def combine_by_day
     unless day_combo? || month_combo? || year_combo?
       combine_with find_combo_for(:day)
     end
   end
-  
+
   def combine_by_month
     unless month_combo? || year_combo?
       combine_with find_combo_for(:month)
     end
   end
-  
+
   def combine_by_year
     unless year_combo?
       combine_with find_combo_for(:year)
@@ -100,11 +100,11 @@ class Punch < ActiveRecord::Base
 
     return 0 if sums.empty? # catch divide by zero
 
-    sums.values.inject(:+).to_f / sums.length    
+    sums.values.inject(:+).to_f / sums.length
   end
 
   private
-  
+
   def set_defaults
     if date = (self.starts_at ||= DateTime.now)
       self.ends_at ||= date
