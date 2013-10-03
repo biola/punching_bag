@@ -1,0 +1,17 @@
+ENV['RAILS_ENV'] = 'test'
+
+require 'bundler/setup'
+require 'combustion'
+
+Bundler.require :default
+
+Combustion.initialize! :active_record
+
+require 'rspec/rails'
+require 'rspec/autorun'
+
+require 'active_support/time'
+
+RSpec.configure do |config|
+  config.use_transactional_fixtures = true
+end

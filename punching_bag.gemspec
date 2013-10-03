@@ -8,10 +8,16 @@ spec = Gem::Specification.new do |s|
   s.version = PunchingBag::VERSION
   s.summary = "PunchingBag hit conter and trending plugin"
   s.description = "PunchingBag is a hit counting and simple trending engine for Ruby on Rails"
-  s.files = Dir['app/**/*.rb', 'lib/**/*.rb', 'lib/tasks/*.rake']
+  s.files = Dir['MIT-LICENSE', 'app/**/*.rb', 'lib/**/*.rb', 'lib/tasks/*.rake']
+  s.test_files = Dir['spec/**/*']
   s.require_path = 'lib'
   s.author = "Adam Crownoble"
   s.email = "adam@obledesign.com"
   s.homepage = "https://github.com/biola/punching_bag"
-  s.add_dependency('voight_kampff', '~>0.1.1')
+  s.add_dependency 'railties'
+  s.add_dependency 'voight_kampff', '>= 0.2.0'
+  s.add_development_dependency 'activerecord', '~> 4.0.0'
+  s.add_development_dependency 'combustion'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'sqlite3'
 end

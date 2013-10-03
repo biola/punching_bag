@@ -19,6 +19,7 @@ class Punch < ActiveRecord::Base
     year = DateTime.new(year) if year.is_a? Integer
     by_timeframe :year, year
   }
+  scope :except_for, ->(punch) { where('id != ?', punch.id) }
 
   def jab?
     hits == 1
@@ -53,7 +54,7 @@ class Punch < ActiveRecord::Base
   end
 
   def find_combo_for(timeframe)
-    punches = punchable.punches.by_timeframe(timeframe, average_time)
+    punches = punchable.punches.by_timeframe(timeframe, average_time).except_for(self)
     punches.combos.first || punches.first
   end
 
