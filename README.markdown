@@ -11,6 +11,12 @@ Features
 * [ActsAsTaggableOn](https://github.com/mbleigh/acts-as-taggable-on) integration for trending tags/topics support
 * [Voight-Kampff](https://github.com/biola/Voight-Kampff) integration for bot checking
 
+Requirements
+============
+
+- An existing Rails app
+- Ruby >= 1.9
+
 Installation
 ============
 

@@ -5,22 +5,19 @@ class Punch < ActiveRecord::Base
   before_validation :set_defaults
   validates :punchable_id, :punchable_type, :starts_at, :ends_at, :average_time, :hits, :presence => true
 
-  default_scope order('punches.average_time DESC')
-  scope :combos, where('punches.hits > 1')
-  scope :jabs, where(:hits => 1)
-  scope :before, lambda{ |time| where('punches.ends_at <= ?', time) }
-  scope :after, lambda{ |*args|
-    time = args.first
-    time.nil?? scoped : where('punches.average_time >= ?', time)
-  }
-  scope :by_timeframe, lambda{ |timeframe, time|
+  default_scope { order 'punches.average_time DESC' }
+  scope :combos, -> { where 'punches.hits > 1' }
+  scope :jabs, -> { where hits: 1 }
+  scope :before, ->(time = nil) { where('punches.ends_at <= ?', time) unless time.nil? }
+  scope :after, ->(time = nil) { where('punches.average_time >= ?', time) unless time.nil? }
+  scope :by_timeframe, ->(timeframe, time) {
     where('punches.starts_at >= ? AND punches.ends_at <= ?', time.send("beginning_of_#{timeframe}"), time.send("end_of_#{timeframe}"))
   }
-  scope :by_day, lambda { |day| by_timeframe(:day, day) }
-  scope :by_month, lambda { |month| by_timeframe(:month, month) }
-  scope :by_year, lambda { |year|
+  scope :by_day, ->(day) { by_timeframe :day, day }
+  scope :by_month, ->(month) { by_timeframe :month, month }
+  scope :by_year, ->(year) {
     year = DateTime.new(year) if year.is_a? Integer
-    by_timeframe(:year, year)
+    by_timeframe :year, year
   }
 
   def jab?
@@ -94,7 +91,7 @@ class Punch < ActiveRecord::Base
       raise ArgumentError, 'Punchables must all be of the same class'
     end
 
-    sums = Punch.where(:punchable_type => punchables.first.class.to_s, :punchable_id => punchables.map(&:id)).group(:punchable_id).sum(:hits)
+    sums = Punch.where(punchable_type: punchables.first.class.to_s, punchable_id: punchables.map(&:id)).group(:punchable_id).sum(:hits)
 
     return 0 if sums.empty? # catch divide by zero
 
