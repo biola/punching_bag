@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Article do
   let(:article_1) { Article.create title: 'Bacon', content: 'Bacon ipsum dolor sit amet turkey short ribs tri-tip' }
   let(:article_2) { Article.create title: 'Hipsters', content: 'American Apparel aute Banksy officia ugh.' }
-  let(:article_3) { Article.create title: 'Lebowski', content: 'Lebowski ipsum over the line! Dolor sit amet, consectetur adipiscing elit praesent ac. ' }
+  let(:article_3) { Article.create title: 'Lebowski', content: 'Lebowski ipsum over the line! Dolor sit amet, consectetur adipiscing elit praesent ac.' }
 
   # Instance methods
   describe 'Article' do

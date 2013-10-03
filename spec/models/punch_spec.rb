@@ -6,7 +6,7 @@ describe Punch do
   let(:year) { Time.now.beginning_of_year }
 
   let(:attrs) { {} }
-  let(:article) { Article.create title: 'Bluths', content: "I know, I just call her Annabelle cause she's shaped like a… she's the belle of the ball!" }
+  let(:article) { Article.create title: 'Bluths', content: "I know, I just call her Annabelle cause she's shaped like a... she's the belle of the ball!" }
   let(:punch) { Punch.new attrs.merge(punchable: article) }
 
   subject { punch }
