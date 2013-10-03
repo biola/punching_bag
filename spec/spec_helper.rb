@@ -11,6 +11,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 
 require 'active_support/time'
+require 'ostruct'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
