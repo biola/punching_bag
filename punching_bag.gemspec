@@ -14,6 +14,7 @@ spec = Gem::Specification.new do |s|
   s.author = "Adam Crownoble"
   s.email = "adam@obledesign.com"
   s.homepage = "https://github.com/biola/punching_bag"
+  s.license = 'MIT'
   s.add_dependency 'railties'
   s.add_dependency 'voight_kampff', '>= 0.2.0'
   s.add_development_dependency 'activerecord', '~> 4.0.0'
