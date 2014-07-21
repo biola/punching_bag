@@ -59,7 +59,7 @@ class Punch < ActiveRecord::Base
   end
 
   def combine_with(combo)
-    if combo != self
+    if combo && combo != self
       combo.starts_at = starts_at if starts_at < combo.starts_at
       combo.ends_at = ends_at if ends_at > combo.ends_at
       combo.average_time = PunchingBag.average_time(combo, self)

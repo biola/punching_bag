@@ -60,6 +60,15 @@ describe Punch do
     its(:year_combo?) { should be_true }
   end
 
+  context 'with only one punch on a day' do
+    let(:other_punch) { nil }
+    before { punch.save! }
+
+    describe '#combine_with' do
+      it { expect { punch.combine_with other_punch }.to_not change { Punch.count } }
+    end
+  end
+
   context 'with another punch on the same day' do
     let(:attrs) { {hits: 1, starts_at: day + 1.hour } }
     let!(:other_punch) { Punch.create punchable: article, starts_at: day + 2.hours }
