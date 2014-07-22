@@ -9,7 +9,7 @@ describe PunchingBag do
 
   describe '.punch' do
     it 'does nothing when the request is from a bot' do
-      expect(PunchingBag.punch(article, bot_request)).to be_false
+      expect(PunchingBag.punch(article, bot_request)).to be false
     end
 
     it 'creates a new punch when the request is valid' do

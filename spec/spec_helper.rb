@@ -8,7 +8,7 @@ Bundler.require :default
 Combustion.initialize! :active_record
 
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'rspec/its'
 
 require 'active_support/time'
 require 'ostruct'

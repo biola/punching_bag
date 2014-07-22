@@ -14,50 +14,50 @@ describe Punch do
 
   context 'with one hit' do
     its(:hits) { should eql 1 }
-    its(:jab?) { should be_true }
-    its(:combo?) { should be_false }
+    its(:jab?) { should be true }
+    its(:combo?) { should be false }
   end
 
   context 'with two hits' do
     let(:attrs) { {hits: 2} }
 
     its(:hits) { should eql 2 }
-    its(:jab?) { should be_false }
-    its(:combo?) { should be_true }
+    its(:jab?) { should be false }
+    its(:combo?) { should be true }
   end
 
   context 'with start time same as end time' do
     its(:timeframe) { should eql :second }
-    its(:day_combo?) { should be_false }
-    its(:month_combo?) { should be_false }
-    its(:year_combo?) { should be_false }
+    its(:day_combo?) { should be false }
+    its(:month_combo?) { should be false }
+    its(:year_combo?) { should be false }
   end
 
   context 'with start time in the same day as end time' do
     let(:attrs) { {starts_at: day + 1.hour, ends_at: day + 2.hours } }
 
     its(:timeframe) { should eql :day }
-    its(:day_combo?) { should be_true }
-    its(:month_combo?) { should be_false }
-    its(:year_combo?) { should be_false }
+    its(:day_combo?) { should be true }
+    its(:month_combo?) { should be false }
+    its(:year_combo?) { should be false }
   end
 
   context 'with start time in the same month as end time' do
     let(:attrs) { {starts_at: month + 1.day, ends_at: month + 2.days } }
 
     its(:timeframe) { should eql :month }
-    its(:day_combo?) { should be_false }
-    its(:month_combo?) { should be_true }
-    its(:year_combo?) { should be_false }
+    its(:day_combo?) { should be false }
+    its(:month_combo?) { should be true }
+    its(:year_combo?) { should be false }
   end
 
   context 'with start time in the same year as end time' do
     let(:attrs) { {starts_at: year + 1.month, ends_at: year + 2.months } }
 
     its(:timeframe) { should eql :year }
-    its(:day_combo?) { should be_false }
-    its(:month_combo?) { should be_false }
-    its(:year_combo?) { should be_true }
+    its(:day_combo?) { should be false }
+    its(:month_combo?) { should be false }
+    its(:year_combo?) { should be true }
   end
 
   context 'with only one punch on a day' do
