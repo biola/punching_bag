@@ -6,7 +6,9 @@ namespace :punching_bag do
     punchable_types = Punch.uniq.pluck(:punchable_type)
 
     punchable_types.each do |punchable_type|
-      punchables = Punch.uniq.where(punchable_type: punchable_type)
+      punchables = punchable_type.constantize.find(
+        Punch.uniq.where(punchable_type: punchable_type).pluck(:punchable_id)
+      )
 
       punchables.each do |punchable|
         # by_year
