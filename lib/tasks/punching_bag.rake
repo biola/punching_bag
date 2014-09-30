@@ -12,17 +12,17 @@ namespace :punching_bag do
         punchable = punchable_type.constantize.find(punchable_id)
 
         # by_year
-        punchable.punches.before(args[:by_year_after].years.ago).each do |punch|
+        punchable.punches.before(args[:by_year_after].to_i.years.ago).each do |punch|
           punch.combine_by_year
         end
 
         # by_month
-        punchable.punches.before(args[:by_month_after].months.ago).each do |punch|
+        punchable.punches.before(args[:by_month_after].to_i.months.ago).each do |punch|
           punch.combine_by_month
         end
 
         # by_day
-        punchable.punches.before(args[:by_day_after].days.ago).each do |punch|
+        punchable.punches.before(args[:by_day_after].to_i.days.ago).each do |punch|
           punch.combine_by_day
         end
       end
