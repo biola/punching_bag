@@ -6,23 +6,26 @@ namespace :punching_bag do
     punchable_types = Punch.uniq.pluck(:punchable_type)
 
     punchable_types.each do |punchable_type|
-      punchable_ids = Punch.uniq.where(punchable_type: punchable_type).pluck(:punchable_id)
+      punchables = punchable_type.constantize.find(
+        Punch.uniq.where(punchable_type: punchable_type).pluck(:punchable_id)
+      )
 
-      punchable_ids.each do |punchable_id|
-        punchable = punchable_type.constantize.find(punchable_id)
-
+      punchables.each do |punchable|
         # by_year
         punchable.punches.before(args[:by_year_after].to_i.years.ago).each do |punch|
+          punch.reload # Dont use the cached version - we might have changed if we were the combo
           punch.combine_by_year
         end
 
         # by_month
         punchable.punches.before(args[:by_month_after].to_i.months.ago).each do |punch|
+          punch.reload # Dont use the cached version - we might have changed if we were the combo
           punch.combine_by_month
         end
 
         # by_day
         punchable.punches.before(args[:by_day_after].to_i.days.ago).each do |punch|
+          punch.reload # Dont use the cached version - we might have changed if we were the combo
           punch.combine_by_day
         end
       end

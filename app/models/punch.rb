@@ -42,20 +42,24 @@ class Punch < ActiveRecord::Base
   end
 
   def day_combo?
-    timeframe == :day
+    timeframe == :day and not find_true_combo_for(:day) == self
   end
 
   def month_combo?
-    timeframe == :month
+    timeframe == :month and not find_true_combo_for(:month) == self
   end
 
   def year_combo?
-    timeframe == :year
+    timeframe == :year and not find_true_combo_for(:year) == self
   end
 
   def find_combo_for(timeframe)
     punches = punchable.punches.by_timeframe(timeframe, average_time).except_for(self)
     punches.combos.first || punches.first
+  end
+
+  def find_true_combo_for(timeframe)
+    punchable.punches.combos.by_timeframe(timeframe, average_time).first
   end
 
   def combine_with(combo)
