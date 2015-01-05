@@ -13,6 +13,7 @@ class Punch < ActiveRecord::Base
   scope :by_timeframe, ->(timeframe, time) {
     where('punches.starts_at >= ? AND punches.ends_at <= ?', time.send("beginning_of_#{timeframe}"), time.send("end_of_#{timeframe}"))
   }
+  scope :by_hour, ->(hour) { by_timeframe :hour, hour }
   scope :by_day, ->(day) { by_timeframe :day, day }
   scope :by_month, ->(month) { by_timeframe :month, month }
   scope :by_year, ->(year) {
@@ -34,11 +35,17 @@ class Punch < ActiveRecord::Base
       :year
     elsif starts_at.day != ends_at.day
       :month
-    elsif starts_at != ends_at
+    elsif starts_at.hour != ends_at.hour
       :day
+    elsif starts_at != ends_at
+      :hour
     else
       :second
     end
+  end
+
+  def hour_combo?
+    timeframe == :hour and not find_true_combo_for(:hour) == self
   end
 
   def day_combo?
@@ -71,6 +78,12 @@ class Punch < ActiveRecord::Base
       self.destroy if combo.save
     end
     combo
+  end
+
+  def combine_by_hour
+    unless hour_combo? || day_combo? || month_combo? || year_combo?
+      combine_with find_combo_for(:hour)
+    end
   end
 
   def combine_by_day
