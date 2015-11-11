@@ -3,11 +3,11 @@ namespace :punching_bag do
   task :combine, [:by_hour_after, :by_day_after, :by_month_after, :by_year_after] => [:environment] do |t, args|
     args.with_defaults :by_hour_after => 24, :by_day_after => 7, :by_month_after => 1, :by_year_after => 1
 
-    punchable_types = Punch.uniq.pluck(:punchable_type)
+    punchable_types = Punch.unscope(:order).uniq.pluck(:punchable_type)
 
     punchable_types.each do |punchable_type|
       punchables = punchable_type.constantize.find(
-        Punch.uniq.where(punchable_type: punchable_type).pluck(:punchable_id)
+        Punch.unscope(:order).uniq.where(punchable_type: punchable_type).pluck(:punchable_id)
       )
 
       punchables.each do |punchable|
