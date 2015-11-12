@@ -2,22 +2,38 @@ require 'spec_helper'
 
 describe PunchingBag do
   let(:article) { Article.create title: 'Hector', content: 'Ding, ding ding... ding. Ding. DING. DING! ' }
-  let(:human_request) { OpenStruct.new(bot?: false) }
-  let(:bot_request) { OpenStruct.new(bot?: true) }
 
   subject { PunchingBag }
 
   describe '.punch' do
-    it 'does nothing when the request is from a bot' do
-      expect(PunchingBag.punch(article, bot_request)).to be false
+    let(:request) { nil }
+
+    context 'when request is from a bot' do
+      let(:request) { instance_double(ActionDispatch::Request, bot?: true) }
+
+      it 'does nothing' do
+        expect(PunchingBag.punch(article, request)).to be false
+      end
     end
 
-    it 'creates a new punch when the request is valid' do
-      expect { PunchingBag.punch(article, human_request) }.to change { Punch.count }.by 1
+    context 'when the request is valid' do
+      let(:request) { instance_double(ActionDispatch::Request, bot?: false) }
+
+      it 'creates a new punch' do
+        expect { PunchingBag.punch(article, request) }.to change { Punch.count }.by 1
+      end
     end
 
-    it 'creates a new punch when there is no request' do
-      expect { PunchingBag.punch(article) }.to change { Punch.count }.by 1
+    context 'when there is no request' do
+      it 'creates a new punch' do
+        expect { PunchingBag.punch(article) }.to change { Punch.count }.by 1
+      end
+    end
+
+    context 'when count is more than one' do
+      it 'creates a new punch with a higher count' do
+        expect { PunchingBag.punch(article, nil, 2) }.to change { Punch.sum(:hits) }.by 2
+      end
     end
   end
 

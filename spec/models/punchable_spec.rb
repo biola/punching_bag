@@ -24,6 +24,12 @@ describe Article do
       it 'incleases hits by one' do
         expect { subject.punch }.to change { subject.hits }.by 1
       end
+
+      context 'when count is set to two' do
+        it 'increases hits by two' do
+          expect { subject.punch(nil, count: 2) }.to change { subject.hits }.by 2
+        end
+      end
     end
   end
 
