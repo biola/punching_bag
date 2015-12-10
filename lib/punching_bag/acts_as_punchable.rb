@@ -23,8 +23,9 @@ module PunchingBag
         punches.after(since).sum(:hits)
       end
 
-      def punch(request=nil)
-        PunchingBag.punch(self, request)
+      def punch(request=nil, options = {})
+        count = options[:count] || 1
+        PunchingBag.punch(self, request, count)
       end
     end
 
