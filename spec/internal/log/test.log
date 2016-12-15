@@ -735,3 +735,242 @@
   [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
   [1m[36mArticle Load (0.3ms)[0m  [1mSELECT  "articles".* FROM "articles" INNER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = ? GROUP BY "punches"."punchable_type", "punches"."punchable_id", "articles"."id"  ORDER BY SUM(punches.hits) DESC LIMIT 5[0m  [["punchable_type", "Article"]]
   [1m[35m (8.3ms)[0m  rollback transaction
+  [1m[36m (8.4ms)[0m  [1mCREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "punches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "punchable_id" integer NOT NULL, "punchable_type" varchar(20) NOT NULL, "starts_at" datetime NOT NULL, "ends_at" datetime NOT NULL, "average_time" datetime NOT NULL, "hits" integer DEFAULT 1 NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  CREATE  INDEX "index_punches_on_average_time" ON "punches" ("average_time")
+  [1m[36m (0.4ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+[0m
+  [1m[35m (0.7ms)[0m  CREATE  INDEX "punchable_index" ON "punches" ("punchable_type", "punchable_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:26:57.883761"], ["updated_at", "2016-12-15 15:26:57.883761"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:26:57.893989"], ["ends_at", "2016-12-15 15:26:57.893989"], ["average_time", "2016-12-15 15:26:57.893989"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:26:57.895603"], ["updated_at", "2016-12-15 15:26:57.895603"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:26:57.896812"], ["ends_at", "2016-12-15 15:26:57.896812"], ["average_time", "2016-12-15 15:26:57.896812"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:26:57.897874"], ["ends_at", "2016-12-15 15:26:57.897874"], ["average_time", "2016-12-15 15:26:57.897874"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.3ms)[0m  [1mSELECT  "articles".* FROM "articles" INNER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = ? GROUP BY "punches"."punchable_type", "punches"."punchable_id", "articles"."id"  ORDER BY SUM(punches.hits) DESC LIMIT 5[0m  [["punchable_type", "Article"]]
+  [1m[35m (8.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:26:57.916037"], ["updated_at", "2016-12-15 15:26:57.916037"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:26:57.918157"], ["ends_at", "2016-12-15 15:26:57.918157"], ["average_time", "2016-12-15 15:26:57.918157"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:26:57.919873"], ["updated_at", "2016-12-15 15:26:57.919873"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:26:57.921385"], ["ends_at", "2016-12-15 15:26:57.921385"], ["average_time", "2016-12-15 15:26:57.921385"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:26:57.922426"], ["ends_at", "2016-12-15 15:26:57.922426"], ["average_time", "2016-12-15 15:26:57.922426"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[36m (9.1ms)[0m  [1mCREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.7ms)[0m  CREATE TABLE "punches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "punchable_id" integer NOT NULL, "punchable_type" varchar(20) NOT NULL, "starts_at" datetime NOT NULL, "ends_at" datetime NOT NULL, "average_time" datetime NOT NULL, "hits" integer DEFAULT 1 NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  CREATE  INDEX "index_punches_on_average_time" ON "punches" ("average_time")
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+[0m
+  [1m[35m (0.7ms)[0m  CREATE  INDEX "punchable_index" ON "punches" ("punchable_type", "punchable_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:07.635596"], ["updated_at", "2016-12-15 15:27:07.635596"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:07.645425"], ["ends_at", "2016-12-15 15:27:07.645425"], ["average_time", "2016-12-15 15:27:07.645425"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:07.647076"], ["updated_at", "2016-12-15 15:27:07.647076"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:07.648475"], ["ends_at", "2016-12-15 15:27:07.648475"], ["average_time", "2016-12-15 15:27:07.648475"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:07.649578"], ["ends_at", "2016-12-15 15:27:07.649578"], ["average_time", "2016-12-15 15:27:07.649578"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.3ms)[0m  [1mSELECT  "articles".* FROM "articles" INNER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = ? GROUP BY "punches"."punchable_type", "punches"."punchable_id", "articles"."id"  ORDER BY SUM(punches.hits) DESC LIMIT 5[0m  [["punchable_type", "Article"]]
+  [1m[35m (0.8ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:07.660669"], ["updated_at", "2016-12-15 15:27:07.660669"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:07.662811"], ["ends_at", "2016-12-15 15:27:07.662811"], ["average_time", "2016-12-15 15:27:07.662811"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:07.664590"], ["updated_at", "2016-12-15 15:27:07.664590"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:07.665784"], ["ends_at", "2016-12-15 15:27:07.665784"], ["average_time", "2016-12-15 15:27:07.665784"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:07.666876"], ["ends_at", "2016-12-15 15:27:07.666876"], ["average_time", "2016-12-15 15:27:07.666876"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.1ms)[0m  [1mSELECT "articles".* FROM "articles" LEFT OUTER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = 'Article' GROUP BY "articles"."id"  ORDER BY SUM(punches.hits) DESC[0m
+  [1m[35m (0.6ms)[0m  rollback transaction
+  [1m[36m (8.4ms)[0m  [1mCREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.7ms)[0m  CREATE TABLE "punches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "punchable_id" integer NOT NULL, "punchable_type" varchar(20) NOT NULL, "starts_at" datetime NOT NULL, "ends_at" datetime NOT NULL, "average_time" datetime NOT NULL, "hits" integer DEFAULT 1 NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX "index_punches_on_average_time" ON "punches" ("average_time")
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+[0m
+  [1m[35m (0.6ms)[0m  CREATE  INDEX "punchable_index" ON "punches" ("punchable_type", "punchable_id")
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:33.100391"], ["updated_at", "2016-12-15 15:27:33.100391"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.110014"], ["ends_at", "2016-12-15 15:27:33.110014"], ["average_time", "2016-12-15 15:27:33.110014"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:33.111543"], ["updated_at", "2016-12-15 15:27:33.111543"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.112746"], ["ends_at", "2016-12-15 15:27:33.112746"], ["average_time", "2016-12-15 15:27:33.112746"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.113810"], ["ends_at", "2016-12-15 15:27:33.113810"], ["average_time", "2016-12-15 15:27:33.113810"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.3ms)[0m  [1mSELECT  "articles".* FROM "articles" INNER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = ? GROUP BY "punches"."punchable_type", "punches"."punchable_id", "articles"."id"  ORDER BY SUM(punches.hits) DESC LIMIT 5[0m  [["punchable_type", "Article"]]
+  [1m[35m (8.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:33.131857"], ["updated_at", "2016-12-15 15:27:33.131857"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.133914"], ["ends_at", "2016-12-15 15:27:33.133914"], ["average_time", "2016-12-15 15:27:33.133914"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:33.135561"], ["updated_at", "2016-12-15 15:27:33.135561"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.136873"], ["ends_at", "2016-12-15 15:27:33.136873"], ["average_time", "2016-12-15 15:27:33.136873"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.137939"], ["ends_at", "2016-12-15 15:27:33.137939"], ["average_time", "2016-12-15 15:27:33.137939"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.1ms)[0m  [1mSELECT "articles".* FROM "articles" LEFT OUTER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = 'Article' GROUP BY "articles"."id"  ORDER BY SUM(punches.hits) DESC[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:33.141047"], ["updated_at", "2016-12-15 15:27:33.141047"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.143008"], ["ends_at", "2016-12-15 15:27:33.143008"], ["average_time", "2016-12-15 15:27:33.143008"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:33.144683"], ["updated_at", "2016-12-15 15:27:33.144683"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.145633"], ["ends_at", "2016-12-15 15:27:33.145633"], ["average_time", "2016-12-15 15:27:33.145633"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:33.146665"], ["ends_at", "2016-12-15 15:27:33.146665"], ["average_time", "2016-12-15 15:27:33.146665"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.1ms)[0m  [1mSELECT "articles".* FROM "articles" LEFT OUTER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = 'Article' GROUP BY "articles"."id"  ORDER BY SUM(punches.hits) DESC[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (8.9ms)[0m  [1mCREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.7ms)[0m  CREATE TABLE "punches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "punchable_id" integer NOT NULL, "punchable_type" varchar(20) NOT NULL, "starts_at" datetime NOT NULL, "ends_at" datetime NOT NULL, "average_time" datetime NOT NULL, "hits" integer DEFAULT 1 NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX "index_punches_on_average_time" ON "punches" ("average_time")
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+[0m
+  [1m[35m (1.0ms)[0m  CREATE  INDEX "punchable_index" ON "punches" ("punchable_type", "punchable_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:43.291992"], ["updated_at", "2016-12-15 15:27:43.291992"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.302439"], ["ends_at", "2016-12-15 15:27:43.302439"], ["average_time", "2016-12-15 15:27:43.302439"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:43.304010"], ["updated_at", "2016-12-15 15:27:43.304010"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.305128"], ["ends_at", "2016-12-15 15:27:43.305128"], ["average_time", "2016-12-15 15:27:43.305128"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.306240"], ["ends_at", "2016-12-15 15:27:43.306240"], ["average_time", "2016-12-15 15:27:43.306240"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.3ms)[0m  [1mSELECT  "articles".* FROM "articles" INNER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = ? GROUP BY "punches"."punchable_type", "punches"."punchable_id", "articles"."id"  ORDER BY SUM(punches.hits) DESC LIMIT 5[0m  [["punchable_type", "Article"]]
+  [1m[35m (8.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:43.324723"], ["updated_at", "2016-12-15 15:27:43.324723"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.326822"], ["ends_at", "2016-12-15 15:27:43.326822"], ["average_time", "2016-12-15 15:27:43.326822"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:43.328492"], ["updated_at", "2016-12-15 15:27:43.328492"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.329869"], ["ends_at", "2016-12-15 15:27:43.329869"], ["average_time", "2016-12-15 15:27:43.329869"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.330950"], ["ends_at", "2016-12-15 15:27:43.330950"], ["average_time", "2016-12-15 15:27:43.330950"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.1ms)[0m  [1mSELECT "articles".* FROM "articles" LEFT OUTER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = 'Article' GROUP BY "articles"."id"  ORDER BY SUM(punches.hits) DESC[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:43.334105"], ["updated_at", "2016-12-15 15:27:43.334105"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.335909"], ["ends_at", "2016-12-15 15:27:43.335909"], ["average_time", "2016-12-15 15:27:43.335909"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:27:43.337031"], ["updated_at", "2016-12-15 15:27:43.337031"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.337941"], ["ends_at", "2016-12-15 15:27:43.337941"], ["average_time", "2016-12-15 15:27:43.337941"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:27:43.338962"], ["ends_at", "2016-12-15 15:27:43.338962"], ["average_time", "2016-12-15 15:27:43.338962"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.1ms)[0m  [1mSELECT "articles".* FROM "articles" LEFT OUTER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = 'Article' GROUP BY "articles"."id"  ORDER BY SUM(punches.hits) ASC[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
