@@ -702,3 +702,36 @@
   [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
   [1m[35mArticle Load (0.1ms)[0m  SELECT  "articles".* FROM "articles" LEFT OUTER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = 'Article' GROUP BY "articles"."id"  ORDER BY SUM(punches.hits) DESC LIMIT 1 OFFSET 1
   [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[36m (8.3ms)[0m  [1mCREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "punches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "punchable_id" integer NOT NULL, "punchable_type" varchar(20) NOT NULL, "starts_at" datetime NOT NULL, "ends_at" datetime NOT NULL, "average_time" datetime NOT NULL, "hits" integer DEFAULT 1 NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX "index_punches_on_average_time" ON "punches" ("average_time")
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_punches_on_average_time' AND type='index'
+[0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX "punchable_index" ON "punches" ("punchable_type", "punchable_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 1"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:22:43.946032"], ["updated_at", "2016-12-15 15:22:43.946032"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 1], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:22:43.955765"], ["ends_at", "2016-12-15 15:22:43.955765"], ["average_time", "2016-12-15 15:22:43.955765"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "articles" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Article 2"], ["content", "Ding, ding ding... ding. Ding. DING. DING! "], ["created_at", "2016-12-15 15:22:43.957272"], ["updated_at", "2016-12-15 15:22:43.957272"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:22:43.958532"], ["ends_at", "2016-12-15 15:22:43.958532"], ["average_time", "2016-12-15 15:22:43.958532"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "punches" ("punchable_id", "punchable_type", "starts_at", "ends_at", "average_time") VALUES (?, ?, ?, ?, ?)[0m  [["punchable_id", 2], ["punchable_type", "Article"], ["starts_at", "2016-12-15 15:22:43.959735"], ["ends_at", "2016-12-15 15:22:43.959735"], ["average_time", "2016-12-15 15:22:43.959735"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mArticle Load (0.3ms)[0m  [1mSELECT  "articles".* FROM "articles" INNER JOIN "punches" ON "punches"."punchable_id" = "articles"."id" AND "punches"."punchable_type" = ? GROUP BY "punches"."punchable_type", "punches"."punchable_id", "articles"."id"  ORDER BY SUM(punches.hits) DESC LIMIT 5[0m  [["punchable_type", "Article"]]
+  [1m[35m (8.3ms)[0m  rollback transaction

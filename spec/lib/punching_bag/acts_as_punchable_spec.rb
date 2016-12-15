@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PunchingBag do
+describe PunchingBag::ActiveRecord::ClassMethods do
 
   let(:request) { instance_double(ActionDispatch::Request, bot?: false) }
 
