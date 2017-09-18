@@ -6,7 +6,7 @@ namespace :punching_bag do
     punchable_types = Punch.unscope(:order).uniq.pluck(:punchable_type)
 
     punchable_types.each do |punchable_type|
-      punchables = punchable_type.constantize.find(
+      punchables = punchable_type.constantize.unscoped.find(
         Punch.unscope(:order).uniq.where(punchable_type: punchable_type).pluck(:punchable_id)
       )
 
