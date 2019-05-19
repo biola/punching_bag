@@ -15,7 +15,7 @@ Requirements
 ============
 
 - An existing Rails app
-- Ruby >= 1.9
+- Ruby >= 2.3
 
 Installation
 ============
