@@ -35,7 +35,7 @@ module PunchingBag
         )
 
         query = query.group(arel_table[primary_key])
-        query.reorder(Arel.sql("SUM(punches.hits) #{dir}"))
+        query.reorder(Arel.sql("SUM(COALESCE(punches.hits, 0)) #{dir}"))
       end
     end
 
