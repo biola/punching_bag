@@ -3,3 +3,4 @@
 *.gem
 Gemfile.lock
 /spec/internal/log/*
+/spec/internal/db/combustion_test.sqlite

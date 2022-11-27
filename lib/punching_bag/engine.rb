@@ -1,6 +1,7 @@
 require 'punching_bag'
 require 'rails'
 require 'active_record'
+require 'crawler_detect'
 
 module PunchingBag
   class Engine < Rails::Engine
