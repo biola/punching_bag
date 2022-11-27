@@ -16,7 +16,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = "https://github.com/biola/punching_bag"
   s.license = 'MIT'
   s.add_dependency 'railties', '>= 3.2'
-  s.add_dependency 'voight_kampff', '>= 1.0'
+  s.add_dependency 'crawler_detect', '>= 1.0'
   s.add_development_dependency 'activerecord', '~> 5.2.3'
   s.add_development_dependency 'combustion', '~> 1.1'
   s.add_development_dependency 'rspec-its', '~> 1.3'

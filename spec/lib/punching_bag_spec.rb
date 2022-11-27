@@ -9,7 +9,7 @@ describe PunchingBag do
     let(:request) { nil }
 
     context 'when request is from a bot' do
-      let(:request) { instance_double(ActionDispatch::Request, bot?: true) }
+      let(:request) { instance_double(ActionDispatch::Request, is_crawler?: true) }
 
       it 'does nothing' do
         expect(PunchingBag.punch(article, request)).to be false
@@ -17,7 +17,7 @@ describe PunchingBag do
     end
 
     context 'when the request is valid' do
-      let(:request) { instance_double(ActionDispatch::Request, bot?: false) }
+      let(:request) { instance_double(ActionDispatch::Request, is_crawler?: false) }
 
       it 'creates a new punch' do
         expect { PunchingBag.punch(article, request) }.to change { Punch.count }.by 1

@@ -1,10 +1,10 @@
 module PunchingBag
   require 'punching_bag/engine' if defined?(Rails)
   require 'punching_bag/acts_as_punchable'
-  require 'voight_kampff'
+  require 'punching_bag/railtie'
 
   def self.punch(punchable, request = nil, count = 1)
-    if request.try(:bot?)
+    if request.try(:is_crawler?)
       false
     else
       p = Punch.new
